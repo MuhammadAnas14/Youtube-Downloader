@@ -1,5 +1,7 @@
 body{
-    font-family: arial, sans-serif;
+    font-family: "ubuntu";
+    background-color: #f9f9f9;
+
 }
 .Toolbar {
     padding: 27px 0;
@@ -7,7 +9,7 @@ body{
     position: fixed;
     top: 0;
     left: 0;
-    background-color:#2985E1;
+    background-color: #f9f9f9;
     background-image: none;
     display: flex;
     justify-content: space-between;
@@ -19,6 +21,14 @@ body{
 
 .Toolbar nav {
     height: 100%;
+}
+
+.Logo {
+    background-color: white;
+    padding: 1px;
+    height: 70px;
+    box-sizing: border-box;
+    border-radius: 5px;
 }
 
 .Logo {
@@ -39,6 +49,7 @@ body{
     flex-flow: column;
     align-items: center;
     height: 100%;
+    
 }
 
 .Navigation li{
@@ -49,10 +60,20 @@ body{
     align-items: center;
     padding: 0 15px 0 0;
     font-size: 14px;
+
 }
+
 .Navigation li a{
-    color: #fff;
+    color:#B71C1C;
     text-decoration: none;
+    width: 100%;
+    box-sizing: border-box;
+    display: block;
+}
+
+.Navigation li a:hover,
+.Navigation li a:active{
+    color: #B71C1C;
 }
 
 
@@ -62,20 +83,7 @@ body{
     }
 }
 
-.Nav {
-    margin: 10px 0;
-    box-sizing: border-box;
-    display: block;
-    width: 100%;
-}
 
-.Nav a {
-    color: #8F5C2C;
-    text-decoration: none;
-    width: 100%;
-    box-sizing: border-box;
-    display: block;
-}
 
 .Nav a:hover,
 .Nav a:active,
@@ -147,14 +155,13 @@ body{
     box-sizing: border-box;
     /* box-shadow: 0 3px 10px 0 rgba(0, 0, 0, 0.2); */
     text-align: center;
-    margin-top: 120px; 
+    margin-top: 60px; 
     height: 100%; 
 }
 
 
 .heading {
-    color:#1D24EB;
-    font-family: arial, sans-serif;
+    color:#B71C1C;
     font-size: 30px;
     font-weight: bold;
     margin-top: 0px;
@@ -176,18 +183,22 @@ body{
 }
     
 .enter-link {
-	padding: 10px;
+	padding: 15px;
 	text-align: center;
 	color: black;
 	font-size: 20px;
 }
 .Input {
-    width: 100%;
-    padding: 30px;
+    width: 85%;
+    padding: 20px;
     box-sizing: border-box;
     box-shadow: none;
-    font-size: medium;
-    border: 1px solid #000;
+    font-size: small;
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    border-bottom: 1px solid #000;
+    padding-left: 0;
 }
 
 .Label {
@@ -207,22 +218,22 @@ body{
     box-sizing: border-box;
 }
 
-.InputElement:focus {
+.Input:focus {
     outline: none;
-    background-color: #ccc;
+    background-color: whitesmoke;
 }
 
 .convert-button {
-	border:2px solid #0485ff;
-	background: #0485ff;
+	border:2px solid #B71C1C;
+	background: #B71C1C;
 	color:white;
     transition: 0.15s;
     padding: 13px;
 }
 
 .convert-button:hover {
-	background: #016acc;
-	border-color: #016acc;
+	background: #ce0707;
+	border-color: #eb1212;
 }
 
 #mp3 {
@@ -237,4 +248,17 @@ body{
     }
 }
 
-    
+.best-head{
+    position: relative;
+    top: 18px;
+    left: 10px;
+    text-align: center;
+    font-weight: 400;
+}
+
+.dis-p{
+    position: relative;
+    padding: 10px;
+    margin-top: 50px;
+}
+ 

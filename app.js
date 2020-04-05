@@ -1,7 +1,8 @@
 const express = require('express');
-// const cors = require('cors');
-// const ytdl = require('ytdl-core');
+const cors = require('cors');
+const ytdl = require('ytdl-core');
 var path  = require('path');
+const youtubedl = require("youtube-dl");
 
 const app = express();
 
@@ -19,12 +20,27 @@ app.get('/',(req,res)=> {
 
 app.get('/downloadmp3', (req,res) => {
 	var url = req.query.url;
-	res.header('Content-Disposition', 'attachment; filename="audio.mp3"');
-	ytdl(url, {
-		format: 'mp3',
-		filter: 'audioonly'
-	}).pipe(res);
-});
+
+	 let vid = youtubedl.getInfo(url, function (err, info) {
+
+		    if (err) throw err  
+		
+
+
+				var videoName = info.title.replace('|','').toString('ascii');
+				return videoName
+				
+				// res.header('Content-Disposition', 'attachment; filename="video.mp3"');
+				// ytdl(url, {
+				// 		format: 'mp3',
+				// 		filter: 'audioonly'
+				// 	}).pipe(res);
+				});
+
+				console.log(vid)
+        
+    });
+	
 
 app.get('/downloadmp4', (req,res) => {
 	var url = req.query.url;
