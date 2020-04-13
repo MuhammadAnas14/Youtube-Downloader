@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const ytdl = require('ytdl-core');
 var path  = require('path');
-const youtubedl = require("youtube-dl");
+const getID = require('./views/getID');
 
 const app = express();
 
@@ -18,34 +18,58 @@ app.get('/',(req,res)=> {
 	res.sendFile('index.html');
 })
 
-app.get('/downloadmp3', (req,res) => {
+
+app.get('/getformat',async (req,res) => {
+  var req 
+})
+
+app.get('/downloadmp3', async (req,res) => {
 	var url = req.query.url;
+	// var videoName = info.title.replace('|','').toString('ascii');
+  // return videoName
 
-	 let vid = youtubedl.getInfo(url, function (err, info) {
+  let videoID = getID(url);
 
-		    if (err) throw err  
-		
+  console.log(videoID)
+  
+  
+  const data = await ytdl.getBasicInfo(videoID);
+  const displayName = data.title;
+  var videoName = displayName.replace('|','').toString('ascii');
+  const format = data.formats
+
+  console.log(format)
+
+  // console.log(videoID)
+
+  res.attachment(`${videoName}.mp3`);
+
+  // res.header('Content-Disposition', 'attachment; filename="video.mp3"');
+	// ytdl(url, {
+	// 		format: 'mp3',
+	// 		filter: 'audioonly'
+	// 		}).pipe(res);
+});
 
 
-				var videoName = info.title.replace('|','').toString('ascii');
-				return videoName
-				
-				// res.header('Content-Disposition', 'attachment; filename="video.mp3"');
-				// ytdl(url, {
-				// 		format: 'mp3',
-				// 		filter: 'audioonly'
-				// 	}).pipe(res);
-				});
 
-				console.log(vid)
-        
-    });
-	
+app.get('/downloadmp4', async (req,res) => {
+  var url = req.query.url;
+	// var videoName = info.title.replace('|','').toString('ascii');
+  // return videoName
 
-app.get('/downloadmp4', (req,res) => {
-	var url = req.query.url;
-	res.header('Content-Disposition', 'attachment; filename="video.mp4"');
+  let videoID = getID(url);
+
+  console.log(videoID)
+  
+  
+  const data = await ytdl.getBasicInfo(videoID);
+  const displayName = data.title;
+
+  res.attachment(`${displayName}.mp4`);
+
+  // res.header('Content-Disposition', 'attachment; filename="video.mp3"');
 	ytdl(url, {
-		format: 'mp4'
-	}).pipe(res);
+			format: 'mp4',
+			}).pipe(res);
 });

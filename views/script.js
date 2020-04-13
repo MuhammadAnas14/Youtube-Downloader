@@ -1,5 +1,6 @@
 var mp3Btn = document.getElementById('mp3');
 var	mp4Btn = document.getElementById('mp4');
+var getFor = document.getElementById('getformat')
 var URLinput = document.querySelector('.Input');
 var server = 'http://localhost:5000';
 
@@ -14,6 +15,11 @@ mp4Btn.addEventListener('click', () => {
 	redirectMp4(URLinput.value);
 });
 
+getFor.addEventListener('click' , () => {
+  console.log(`URL: ${URLinput.value}`);
+  redirectGetFormat(URLinput.value)
+})
+
 function redirectMp3(query) {
 	window.location.href = `${server}/downloadmp3?url=${query}`;
 }
@@ -21,3 +27,5 @@ function redirectMp3(query) {
 function redirectMp4(query) {
 	window.location.href = `${server}/downloadmp4?url=${query}`;
 }
+
+function redirectGetFormat
