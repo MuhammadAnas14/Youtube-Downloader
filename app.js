@@ -20,7 +20,14 @@ app.get('/',(req,res)=> {
 
 
 app.get('/getformat',async (req,res) => {
-  var req 
+  var url = req.query.url
+
+  let videoID =getID(url);
+
+  const data = await ytdl.getBasicInfo(videoID);
+  let format = data.formats
+
+  console.log(format)
 })
 
 app.get('/downloadmp3', async (req,res) => {
@@ -36,13 +43,14 @@ app.get('/downloadmp3', async (req,res) => {
   const data = await ytdl.getBasicInfo(videoID);
   const displayName = data.title;
   var videoName = displayName.replace('|','').toString('ascii');
-  const format = data.formats
+  const format = data.formats[1]
 
   console.log(format)
 
   // console.log(videoID)
 
   res.attachment(`${videoName}.mp3`);
+
 
   // res.header('Content-Disposition', 'attachment; filename="video.mp3"');
 	// ytdl(url, {
@@ -62,14 +70,33 @@ app.get('/downloadmp4', async (req,res) => {
 
   console.log(videoID)
   
-  
   const data = await ytdl.getBasicInfo(videoID);
   const displayName = data.title;
 
   res.attachment(`${displayName}.mp4`);
 
   // res.header('Content-Disposition', 'attachment; filename="video.mp3"');
-	ytdl(url, {
-			format: 'mp4',
-			}).pipe(res);
+
+  ytdl.getInfo(videoID, (err, info) => {
+    if (err) throw err;
+    let format = ytdl.chooseFormat(info.formats, { quality: '18' });
+    let audioFormats = ytdl.filterFormats(info.formats, 'audioonly');
+    console.log(audioFormats)
+    if (format) {
+      console.log(format)
+      console.log('Format found!');
+    }
+    ytdl(url,{
+      format:format,
+      filter:'audioandvideo'
+    }).pipe(res)
+  });
+	// ytdl(url, {
+  
+  //   format : {
+  //     quality : 'highest',
+  //     url:url,
+  //     container: 'mp4'
+  //   }
+	// 		}).pipe(res); 
 });

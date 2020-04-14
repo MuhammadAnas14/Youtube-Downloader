@@ -28,4 +28,6 @@ function redirectMp4(query) {
 	window.location.href = `${server}/downloadmp4?url=${query}`;
 }
 
-function redirectGetFormat
+function redirectGetFormat(query){
+  window.location.href = `${server}/getformat?url=${query}`
+}
